@@ -77,7 +77,7 @@ void Frame::ComputeIMUPreIntSinceLastFrame(const Frame* pLastF, IMUPreintegrator
         IMUPreInt.update(imu._g - bg, imu._a - ba, dt);
 
         // Test log
-        if (dt <= 0)
+        if(dt <= -0.00000000001)
         {
             cerr << std::fixed << std::setprecision(3) << "frame:dt = " << dt << ", this vs next time: " << imu._t << " vs " << nextt << endl;
             std::cerr.unsetf ( std::ios::showbase );                // deactivate showbase
