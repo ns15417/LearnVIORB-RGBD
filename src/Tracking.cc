@@ -281,7 +281,7 @@ bool Tracking::TrackLocalMapWithIMU(bool bMapUpdated)
     if (mCurrentFrame.mnId < mnLastRelocFrameId + mMaxFrames && mnMatchesInliers < 50)
         return false;
 
-    if (mnMatchesInliers < 30)
+    if(mnMatchesInliers<6/*30*/)
         return false;
     else
         return true;
@@ -423,7 +423,7 @@ bool Tracking::TrackWithIMU(bool bMapUpdated)//替换了原来的 TrackWithMotio
         return nmatches > 20;
     }
 
-    return nmatchesMap >= 10;
+    return nmatchesMap>=/*10*/6;
 }
 
 
@@ -466,9 +466,9 @@ IMUPreintegrator Tracking::GetIMUPreIntSinceLastKF(Frame* pCurF, KeyFrame* pLast
 
 
         // Test log
-        if (dt <= 0)
+        if(dt <= -0.00000001)
         {
-            cerr << std::fixed << std::setprecision(3) << "tracking:dt = " << dt << ", this vs next time: " << imu._t << " vs " << nextt << endl;
+            cerr<<std::fixed<<std::setprecision(3)<<"dt = "<<dt<<", this vs next time: "<<imu._t<<" vs "<<nextt<<endl;
             std::cerr.unsetf ( std::ios::showbase );                // deactivate showbase
         }
     }
@@ -992,7 +992,7 @@ void Tracking::Track()
                 mVelocity = cv::Mat();
 
             mpMapDrawer->SetCurrentCameraPose(mCurrentFrame.mTcw);
-
+            //mpMapDrawer->SetCurrentVinState(mpLocalMapper->GetVINSInited());
             // Clean VO matches
             for (int i = 0; i < mCurrentFrame.N; i++)
             {
