@@ -130,7 +130,7 @@ void Viewer::Run()
             mpMapDrawer->DrawKeyFrames(menuShowKeyFrames,menuShowGraph);
         if(menuShowPoints)
             mpMapDrawer->DrawMapPoints();
-
+        mpMapDrawer->DrawGroundPlane();
         pangolin::FinishFrame();
 
         cv::Mat im = mpFrameDrawer->DrawFrame();

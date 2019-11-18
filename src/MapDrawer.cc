@@ -80,6 +80,30 @@ void MapDrawer::DrawMapPoints()
     glEnd();
 }
 
+void MapDrawer::DrawGroundPlane()
+{
+    //if(bDrawGroundPlane)
+    {
+        glLineWidth(2);
+        glColor4f(0.1f, 0.1f, 0.1f, 0.2f);
+        glBegin(GL_LINES);
+
+        int nLines = 10;
+        int width = 10;
+        int size = 5; // 5m
+
+        for (int i = -nLines; i < nLines; i++) {
+            glVertex3f(-width * size, 0, i * size);
+            glVertex3f(width * size, 0, i * size);
+
+            glVertex3f(i * size, 0, -width * size);
+            glVertex3f(i * size, 0, width * size);
+         }
+
+         glEnd();
+    }
+}
+
 void MapDrawer::DrawKeyFrames(const bool bDrawKF, const bool bDrawGraph)
 {
     const float &w = mKeyFrameSize;
@@ -218,7 +242,6 @@ void MapDrawer::DrawCurrentCamera(pangolin::OpenGlMatrix &Twc)
 
     glPopMatrix();
 }
-
 
 void MapDrawer::SetCurrentCameraPose(const cv::Mat &Tcw)
 {
