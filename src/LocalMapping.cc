@@ -119,12 +119,16 @@ bool LocalMapping::TryInitVIO(void)
         fbiasg<<std::fixed<<std::setprecision(6);
     }
 
+    Optimizer::GlobalBundleAdjustemnt(mpMap, 10);
+
     // Extrinsics
     cv::Mat Tbc = ConfigParam::GetMatTbc();
     cv::Mat Rbc = Tbc.rowRange(0,3).colRange(0,3);
     cv::Mat pbc = Tbc.rowRange(0,3).col(3);
     cv::Mat Rcb = Rbc.t();
     cv::Mat pcb = -Rcb*pbc;
+
+
 
     // Use all KeyFrames in map to compute
     vector<KeyFrame*> vScaleGravityKF = mpMap->GetAllKeyFrames();
@@ -379,7 +383,7 @@ bool LocalMapping::TryInitVIO(void)
         mbFirstTry = false;
         mnStartTime = mpCurrentKeyFrame->mTimeStamp;
     }
-    if(mpCurrentKeyFrame->mTimeStamp - mnStartTime >= 15.0)
+    if(mpCurrentKeyFrame->mTimeStamp - mnStartTime >= ConfigParam::GetVINSInitTime())
     {
         bVIOInited = true;
     }
