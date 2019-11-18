@@ -13,6 +13,11 @@
 **/build*/*
 .tags
 .tags_sorted_by_file
+Vocabulary/*
+config/*
+Examples/ROS/ORB_VIO/VIO
+Examples/Monocular/ORBVIO_euroc
+Examples/Monocular/StereoORBVIO_euroc
 
 
 
