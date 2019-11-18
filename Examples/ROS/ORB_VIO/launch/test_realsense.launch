@@ -1,0 +1,6 @@
+<launch>
+
+<node pkg="ORB_VIO" type="VIO" name="VIO" launch-prefix="gdb  run --args" args="$(find ORB_VIO)/../../../Vocabulary/ORBvoc.bin /home/shinan/Project/Learn-ORB-VIO-Stereo-Mono/config/rs_rgb_imu_official.yaml" cwd="node" output="screen" >
+</node>
+
+</launch>

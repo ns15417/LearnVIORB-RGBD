@@ -28,10 +28,11 @@ endif()
 
 LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_modules)
 
-find_package(OpenCV 2.4.10 REQUIRED HINTS /home/zuojiaxing/local)
+find_package(OpenCV 3.0 REQUIRED)
 find_package(Eigen3 3.1.0 REQUIRED)
 find_package(Pangolin REQUIRED)
 find_package(Cholmod REQUIRED)
+find_package(realsense2 REQUIRED)
 
 include_directories(
 ${PROJECT_SOURCE_DIR}
@@ -41,6 +42,8 @@ ${EIGEN3_INCLUDE_DIR}
 ${Pangolin_INCLUDE_DIRS}
 ${CHOLMOD_INCLUDE_DIR}
 )
+
+set(CHOLMOD_INCLUDE_DIR "/usr/include/suitesparse")
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 
@@ -93,9 +96,16 @@ ${Pangolin_LIBRARIES}
 ${PROJECT_SOURCE_DIR}/Thirdparty/DBoW2/lib/libDBoW2.so
 ${PROJECT_SOURCE_DIR}/Thirdparty/g2o/lib/libg2o.so
 cholmod
-${CHOLMOD_LIBRARIES}
+/usr/lib/x86_64-linux-gnu/libcholmod.so
+/usr/lib/x86_64-linux-gnu/libamd.so
+/usr/lib/x86_64-linux-gnu/libcolamd.so
+/usr/lib/x86_64-linux-gnu/libcamd.so
+/usr/lib/x86_64-linux-gnu/libccolamd.so
+/usr/lib/x86_64-linux-gnu/libsuitesparseconfig.so
+#${CHOLMOD_LIBRARIES}
 ${BLAS_LIBRARIES}
 ${LAPACK_LIBRARIES}
+${realsense2_LIBRARY}
 )
 
 ## Build examples
@@ -117,7 +127,7 @@ ${LAPACK_LIBRARIES}
 #target_link_libraries(stereo_euroc ${PROJECT_NAME})
 
 
-#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Examples/Monocular)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Examples/Monocular)
 
 #add_executable(mono_tum
 #Examples/Monocular/mono_tum.cc)
